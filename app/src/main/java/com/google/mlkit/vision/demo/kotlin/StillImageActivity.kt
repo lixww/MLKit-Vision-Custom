@@ -47,6 +47,7 @@ import com.google.mlkit.vision.demo.R
 import com.google.mlkit.vision.demo.VisionImageProcessor
 import com.google.mlkit.vision.demo.kotlin.barcodescanner.BarcodeScannerProcessor
 import com.google.mlkit.vision.demo.kotlin.facedetector.FaceDetectorProcessor
+import com.google.mlkit.vision.demo.kotlin.facedetector.FacesDetectorProcessorBeta
 import com.google.mlkit.vision.demo.kotlin.facemeshdetector.FaceMeshDetectorProcessor
 import com.google.mlkit.vision.demo.kotlin.labeldetector.LabelDetectorProcessor
 import com.google.mlkit.vision.demo.kotlin.objectdetector.ObjectDetectorProcessor
@@ -162,6 +163,7 @@ class StillImageActivity : AppCompatActivity() {
     options.add(OBJECT_DETECTION_CUSTOM)
     options.add(CUSTOM_AUTOML_OBJECT_DETECTION)
     options.add(FACE_DETECTION)
+    options.add(FACES_DETECTION)
     options.add(BARCODE_SCANNING)
     options.add(IMAGE_LABELING)
     options.add(IMAGE_LABELING_CUSTOM)
@@ -384,6 +386,11 @@ class StillImageActivity : AppCompatActivity() {
           val faceDetectorOptions = PreferenceUtils.getFaceDetectorOptions(this)
           imageProcessor = FaceDetectorProcessor(this, faceDetectorOptions)
         }
+        FACES_DETECTION -> {
+          Log.i(TAG, "Using Faces Detector Processor (Beta)")
+          val faceDetectorOptions = PreferenceUtils.getFaceDetectorOptions(this)
+          imageProcessor = FacesDetectorProcessorBeta(this, faceDetectorOptions)
+        }
         BARCODE_SCANNING -> imageProcessor = BarcodeScannerProcessor(this, zoomCallback = null)
         TEXT_RECOGNITION_LATIN ->
           imageProcessor = TextRecognitionProcessor(this, TextRecognizerOptions.Builder().build())
@@ -467,6 +474,7 @@ class StillImageActivity : AppCompatActivity() {
     private const val OBJECT_DETECTION_CUSTOM = "Custom Object Detection"
     private const val CUSTOM_AUTOML_OBJECT_DETECTION = "Custom AutoML Object Detection (Flower)"
     private const val FACE_DETECTION = "Face Detection"
+    private const val FACES_DETECTION = "Face Detection (Beta)"
     private const val BARCODE_SCANNING = "Barcode Scanning"
     private const val TEXT_RECOGNITION_LATIN = "Text Recognition Latin"
     private const val TEXT_RECOGNITION_CHINESE = "Text Recognition Chinese"

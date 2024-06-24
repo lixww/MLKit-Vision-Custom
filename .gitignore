@@ -117,3 +117,5 @@ fabric.properties
 *.data.*
 
 app/build/
+
+.DS_Store

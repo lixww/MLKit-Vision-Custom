@@ -87,6 +87,7 @@ class LivePreviewActivity :
     options.add(OBJECT_DETECTION_CUSTOM)
     options.add(CUSTOM_AUTOML_OBJECT_DETECTION)
     options.add(FACE_DETECTION)
+    options.add(FACES_DETECTION)
     options.add(BARCODE_SCANNING)
     options.add(IMAGE_LABELING)
     options.add(IMAGE_LABELING_CUSTOM)
@@ -224,6 +225,14 @@ class LivePreviewActivity :
             FaceDetectorProcessor(this, faceDetectorOptions)
           )
         }
+        FACES_DETECTION -> {
+          //todo@xiaowei faces detection beta in live preview
+            Log.i(TAG, "Using Faces Detector Processor")
+            val faceDetectorOptions = PreferenceUtils.getFaceDetectorOptions(this)
+            cameraSource!!.setMachineLearningFrameProcessor(
+                FaceDetectorProcessor(this, faceDetectorOptions)
+            )
+        }
         BARCODE_SCANNING -> {
           Log.i(TAG, "Using Barcode Detector Processor")
           var zoomCallback: ZoomCallback? = null
@@ -348,6 +357,7 @@ class LivePreviewActivity :
     private const val OBJECT_DETECTION_CUSTOM = "Custom Object Detection"
     private const val CUSTOM_AUTOML_OBJECT_DETECTION = "Custom AutoML Object Detection (Flower)"
     private const val FACE_DETECTION = "Face Detection"
+    private const val FACES_DETECTION = "Faces Detection (Beta)"
     private const val TEXT_RECOGNITION_LATIN = "Text Recognition Latin"
     private const val TEXT_RECOGNITION_CHINESE = "Text Recognition Chinese"
     private const val TEXT_RECOGNITION_DEVANAGARI = "Text Recognition Devanagari"
