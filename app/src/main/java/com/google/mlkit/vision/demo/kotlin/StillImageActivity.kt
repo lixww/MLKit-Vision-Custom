@@ -26,7 +26,6 @@ import android.os.Build
 import android.os.Build.VERSION
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.util.Pair
 import android.view.MenuItem
@@ -39,6 +38,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.annotation.KeepName
 import com.google.mlkit.common.model.LocalModel
 import com.google.mlkit.vision.demo.BitmapUtils
@@ -66,13 +66,20 @@ import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.io.IOException
-import java.util.ArrayList
 
 /** Activity demonstrating different image detector features with a still image from camera. */
 @KeepName
 class StillImageActivity : AppCompatActivity() {
+
+  //this will cause memory leak when rotating screen
   private var preview: ImageView? = null
+
+  //this will cause memory leak when rotating screen
   private var graphicOverlay: GraphicOverlay? = null
+
+  private var selectImageButton: View? = null
+  private var popup: PopupMenu? = null
+
   private var selectedMode = OBJECT_DETECTION
   private var selectedSize: String? = SIZE_SCREEN
   private var isLandScape = false
@@ -86,10 +93,11 @@ class StillImageActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_still_image)
-    findViewById<View>(R.id.select_image_button).setOnClickListener { view: View ->
+    selectImageButton = findViewById<View>(R.id.select_image_button)
+    selectImageButton?.setOnClickListener { view: View ->
       // Menu for selecting either: a) take new photo b) select from existing
-      val popup = PopupMenu(this@StillImageActivity, view)
-      popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+      popup = PopupMenu(this@StillImageActivity, view)
+      popup?.setOnMenuItemClickListener { menuItem: MenuItem ->
         val itemId = menuItem.itemId
         if (itemId == R.id.select_images_from_local) {
           startChooseImageIntentForResult()
@@ -100,9 +108,13 @@ class StillImageActivity : AppCompatActivity() {
         }
         false
       }
-      val inflater = popup.menuInflater
-      inflater.inflate(R.menu.camera_button_menu, popup.menu)
-      popup.show()
+      popup?.setOnDismissListener { menu ->
+        menu.dismiss()
+        popup = null
+      }
+      val inflater = popup?.menuInflater
+      inflater?.inflate(R.menu.camera_button_menu, popup?.menu)
+      popup?.show()
     }
     preview = findViewById(R.id.preview)
     graphicOverlay = findViewById(R.id.graphic_overlay)
@@ -148,6 +160,17 @@ class StillImageActivity : AppCompatActivity() {
 
   public override fun onPause() {
     super.onPause()
+    imageProcessor?.run { this.stop() }
+  }
+
+  override fun onStop() {
+    super.onStop()
+    // fix memory leak
+    preview = null
+    graphicOverlay = null
+    selectImageButton = null
+    popup = null
+
     imageProcessor?.run { this.stop() }
   }
 
