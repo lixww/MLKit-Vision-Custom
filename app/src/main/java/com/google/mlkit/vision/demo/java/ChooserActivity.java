@@ -31,8 +31,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.google.mlkit.vision.demo.BuildConfig;
 import com.google.mlkit.vision.demo.R;
+
+import org.opencv.BuildConfig;
 
 /** Demo app chooser which allows you pick from all available testing Activities. */
 public final class ChooserActivity extends AppCompatActivity
