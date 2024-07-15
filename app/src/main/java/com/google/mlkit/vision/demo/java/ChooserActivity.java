@@ -51,6 +51,7 @@ public final class ChooserActivity extends AppCompatActivity
             StillImageActivity.class,
             CameraXLivePreviewActivity.class,
             CameraXSourceDemoActivity.class,
+              BackgroundTestActivity.class,
           };
 
   private static final int[] DESCRIPTION_IDS =
@@ -63,6 +64,7 @@ public final class ChooserActivity extends AppCompatActivity
             R.string.desc_still_image_activity,
             R.string.desc_camerax_live_preview_activity,
             R.string.desc_cameraxsource_demo_activity,
+              R.string.desc_background_test_activity,
           };
 
   @Override

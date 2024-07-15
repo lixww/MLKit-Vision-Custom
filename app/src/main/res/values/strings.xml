@@ -13,6 +13,7 @@
     <string name="desc_still_image_activity" translatable="false">Vision detectors demo with a still image</string>
     <string name="desc_camerax_live_preview_activity" translatable="false">Vision detectors demo with live preview using CameraX. Note that CameraX is only supported on API 21+</string>
     <string name="desc_cameraxsource_demo_activity" translatable="false">Object detection with custom classifier using ML Kit CameraXSource API. Note that CameraX is only supported on API 21+</string>
+    <string name="desc_background_test_activity" translatable="false">There is nothing to say.</string>
     <string name="download_error" translatable="false">Download error</string>
     <string name="start_over" translatable="false">Start over</string>
     <string name="menu_item_settings" translatable="false">Settings</string>
