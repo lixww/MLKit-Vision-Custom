@@ -93,6 +93,9 @@ class StillImageActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_still_image)
+    preview = findViewById(R.id.preview)
+    graphicOverlay = findViewById(R.id.graphic_overlay)
+
     selectImageButton = findViewById<View>(R.id.select_image_button)
     selectImageButton?.setOnClickListener { view: View ->
       // Menu for selecting either: a) take new photo b) select from existing
@@ -116,8 +119,6 @@ class StillImageActivity : AppCompatActivity() {
       inflater?.inflate(R.menu.camera_button_menu, popup?.menu)
       popup?.show()
     }
-    preview = findViewById(R.id.preview)
-    graphicOverlay = findViewById(R.id.graphic_overlay)
 
     populateFeatureSelector()
     populateSizeSelector()
@@ -163,19 +164,16 @@ class StillImageActivity : AppCompatActivity() {
     imageProcessor?.run { this.stop() }
   }
 
-  override fun onStop() {
-    super.onStop()
+
+  public override fun onDestroy() {
+    super.onDestroy()
+
     // fix memory leak
     preview = null
     graphicOverlay = null
     selectImageButton = null
     popup = null
 
-    imageProcessor?.run { this.stop() }
-  }
-
-  public override fun onDestroy() {
-    super.onDestroy()
     imageProcessor?.run { this.stop() }
   }
 
