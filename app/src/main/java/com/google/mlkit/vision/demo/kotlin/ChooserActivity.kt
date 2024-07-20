@@ -97,7 +97,8 @@ class ChooserActivity :
           LivePreviewActivity::class.java,
           StillImageActivity::class.java,
           CameraXLivePreviewActivity::class.java,
-          CameraXSourceDemoActivity::class.java
+          CameraXSourceDemoActivity::class.java,
+          BackgroundTestActivity::class.java
         )
     private val DESCRIPTION_IDS =
       if (VERSION.SDK_INT < VERSION_CODES.LOLLIPOP)
@@ -110,7 +111,8 @@ class ChooserActivity :
           R.string.desc_camera_source_activity,
           R.string.desc_still_image_activity,
           R.string.desc_camerax_live_preview_activity,
-          R.string.desc_cameraxsource_demo_activity
+          R.string.desc_cameraxsource_demo_activity,
+          R.string.desc_background_test_activity
         )
   }
 }

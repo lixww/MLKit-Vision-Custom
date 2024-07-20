@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.google.android.gms.common.annotation.KeepName;
 import com.google.mlkit.vision.demo.R;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +33,11 @@ public class BackgroundTestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_background);
+
+//        Callable<Integer> task = () -> {
+//            int number = 5;
+//            return number * number;
+//        };
 
         executorService.submit(() -> {
             //get the name of current thread and process
